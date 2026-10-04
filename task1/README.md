@@ -11,3 +11,8 @@ A big-endian machine puts `12` at the lowest address. However, a little-endian m
 |---------------|------|------|------|------|
 | Big-endian    | `12` | `34` | `56` | `78` |
 | Little-endian | `78` | `56` | `34` | `12` |
+
+## Where can we see them?
+
+Nowadays, we can say that most desktop and mobile hardware is little-endian. For example: x86, x86-64, RISC-V and ARM in its usual configuration. 
+Nevertheless, we can observe big-endian in older SPARC and PowerPC systems. Several chips, such as ARM, MIPS and PowerPC, can be switched between little and big-endian. Moreover, network protocols and Java class files utilize big-endian.
