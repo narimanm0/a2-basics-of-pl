@@ -30,3 +30,7 @@ Now, let's focus on big-endianness:
 - comparing two byte strings gives the same result as comparing the numbers.
 
 From my perspective, a common mistake is to write a `struct` straight to a file/socket. It works on the developer's machine; however, it silently breaks on another one without giving any compiler warning. Consequently, I think a sensible approach is to define always the order of the byte of a file format/protocol. Furthermore, nowadays, it is unfortunate that network byte order is big-endian while almost every machine is little-endian. Ultimately, endianness is only about the order of bytes.
+
+## Conclusion
+
+Endianness is a convention. It does not choose neither correct or faster ways. It only matters when data is exchanged between systems. In addition, it is safest to choose one byte order for the format and convert to it in the code.
