@@ -14,3 +14,15 @@ Obviously, this is only possible when the number of columns in the first matrix 
 ### Python implementation
 
 The Python program `multiply_matrix.py` does the same job with NumPy. Instead of three loops, we are just calling `np.dot(a, b)` once. The loops still exist, but they are executed inside NumPy's compiled C code, not by the Python interpreter.
+
+## 2. Unit tests
+
+The tests are in `test_multiply_matrix.c`. Each test prints the expected result first, and then the output of `multiply_matrix()`, so they can be compared. We have 5 tests:
+
+| Test | Idea                         | Why?                                               |
+|------|------------------------------|----------------------------------------------------|
+| 1    | example from the program     | check that the original program works              |
+| 2    | numbers calculated by hand   | check the formula with different values            |
+| 3    | identity matrix              | the 2nd matrix must not change                     |
+| 4    | zero matrix                  | every element of the result must be 0              |
+| 5    | negative numbers             | check signs of the products and the sums           |
