@@ -38,3 +38,17 @@ In Python 3.14, there is also the 4th field, which caches the hash of tuple. Now
 24 + 4 * 8 = 56
 ```
 
+
+### Why we are seeing 72 bytes for List?
+
+In the case of List, it can grow/shrink, which means that its elements cannot be stored inside the object. List's object holds:
+- pointer to a separate array of elements of pointers;
+- counter of the slots in the array.
+So, the calculation is the following:
+```
+24 (header) + 8 * 2 = 40
+```
+But why not 72? Because `__sizeof__()` adds size of the separate array that list points to. This array has `allocated * 8` bytes. What is `allocated`? It is the number of slots (not number of elements). In our case, [1,2,3] has 4 slots. Therefore, we need to do calculation again:
+```
+24 + 4 * 8 + 8 = 72
+```
