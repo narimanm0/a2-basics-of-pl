@@ -37,3 +37,35 @@ The tests are in `test_multiply_matrix.c`. Each test prints the expected result 
 
 The Python version is about 5 times shorter in lines and about 8 times smaller in bytes. It has no size macros, no loops and no dimension check, because NumPy raises an error when the shapes
 do not match. However, the Python program needs the interpreter and NumPy, while the C executable is standalone.
+
+## 4. Execution time analysis
+
+One 2x2 by 2x3 multiplication takes nanoseconds, so a single run cannot be measured. Each version multiplies the matrices many times and we divide the total time by the number of runs.
+The C benchmark has no `printf` inside the loop, otherwise we would measure the console and not the multiplication.
+
+| Version                    | Runs       | Time per multiplication |
+|----------------------------|------------|-------------------------|
+| C, `-O0`                   | 10 000 000 | 60 ns                   |
+| C, `-O2`                   | 10 000 000 | about 4.7 ns            |
+| Python + NumPy (lists)     | 1 000 000  | about 3 200 ns          |
+| Python + NumPy (arrays)    | 1 000 000  | about 1 000 ns          |
+| Pure Python (3 loops)      | 200 000    | about 4 500 ns          |
+
+You can ask what is `-O`s there. They are Optimization Level.
+
+For tiny matrices C (`-O2`) is about 200-700 times faster than NumPy. NumPy has a fixed overhead per call (converting lists to arrays, checking types, dispatching), which is much
+larger than the 12 multiplications themselves. Even pure Python is not much slower than `np.dot` on lists here.
+
+The opposite case is 500x500 matrices:
+
+| Version                                  | Time      |
+|------------------------------------------|-----------|
+| C, `-O2`, naive `i-j-k` loops (int)     | 0.063 s   |
+| C, `-O2`, `i-k-j` loop order (int)      | 0.035 s   |
+| NumPy `@`, int64                         | 0.17 s    |
+| NumPy `@`, float64 (BLAS)                | 0.009 s   |
+
+BLAS - Basic Linear Algebra Subprograms
+
+Interestingly, NumPy is not always the winner. With integers, NumPy does not use BLAS and its loop is slower than compiled C. With floats, BLAS is about 4-7 times faster than our
+C code. This is because BLAS uses blocking and SIMD, and our naive loop uses neither. At `-O0` the 500x500 C version takes 0.43 s, which shows how much the compiler flag matters.
