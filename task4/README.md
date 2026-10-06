@@ -98,3 +98,7 @@ matrix[row_start:row_end, col_start:col_end]
 ```
 
 In C, the same operation has to be implemented manually using two loops. For this simple operation, the Python implementation is shorter and easier to understand. However, C gives more direct control over memory and does not require an external numerical library. Both implementations gave the same result for the tested matrix and slicing boundaries.
+
+## 4. Conclusion
+
+This task showed how the same 2D matrix slicing operation can be implemented differently in Python and C. NumPy makes the operation very short, while C requires explicit loops. The most important part was using the same row and column boundaries in both programs. The results were the same, which shows that both implementations perform the required 2D slicing correctly. The graphical output also makes the sliced matrix easier to see and compare.
