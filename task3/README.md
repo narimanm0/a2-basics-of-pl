@@ -26,3 +26,15 @@ The tests are in `test_multiply_matrix.c`. Each test prints the expected result 
 | 3    | identity matrix              | the 2nd matrix must not change                     |
 | 4    | zero matrix                  | every element of the result must be 0              |
 | 5    | negative numbers             | check signs of the products and the sums           |
+
+## 3. Code size analysis
+
+| Version            | Lines of code | Source size (bytes) | Executable size (bytes) |
+|--------------------|---------------|---------------------|-------------------------|
+| C                  | 33            | 828                 | 16 152                  |
+| Python (NumPy)     | 7             | 99                  | not applicable          |
+
+Lines were counted with `wc -l`, sizes with `wc -c` and `ls -l`. The executable size is the same for `-O0` and `-O2`, because almost all of the 16 KB is the ELF/startup overhead, not our code.
+
+The Python version is about 5 times shorter in lines and about 8 times smaller in bytes. It has no size macros, no loops and no dimension check, because NumPy raises an error when the shapes
+do not match. However, the Python program needs the interpreter and NumPy, while the C executable is standalone.
