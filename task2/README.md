@@ -52,3 +52,6 @@ But why not 72? Because `__sizeof__()` adds size of the separate array that list
 ```
 24 + 4 * 8 + 8 = 72
 ```
+
+## 3. Conclusion
+On Python 3.14.4, `(1, 2, 3).__sizeof__()` is 56 bytes and `[1, 2, 3].__sizeof__()` is 72 bytes. Tuple stores its pointers inside the object, so its size is exactly `32 + 8n`. However, list keeps them in a separate array with spare capacity, so it carries an additional pointer, a capacity counter and unused slots. This extra cost is the price for mutability and fast `append()`. When a sequence does not need to change, a tuple is smaller, has a predictable size and, for constants, is created at compile time. Of course, exact numbers depend on the Python versions.
