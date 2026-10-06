@@ -69,3 +69,17 @@ BLAS - Basic Linear Algebra Subprograms
 
 Interestingly, NumPy is not always the winner. With integers, NumPy does not use BLAS and its loop is slower than compiled C. With floats, BLAS is about 4-7 times faster than our
 C code. This is because BLAS uses blocking and SIMD, and our naive loop uses neither. At `-O0` the 500x500 C version takes 0.43 s, which shows how much the compiler flag matters.
+
+## 5. ChatGPT Implementation
+
+After completing my own implementation, I asked ChatGPT to implement the same matrix multiplication task independently. In the prompt, I specified that the solution should use NumPy for Python and C for the C-like implementation. I also asked it to keep the implementation general and explain the difference between the two approaches. The prompt I used was:
+
+> Implement matrix multiplication using NumPy and C. The matrix dimensions should not be hard-coded. The user should provide the matrix dimensions and values as input. The C implementation should use nested loops for multiplication, while the Python implementation should use NumPy. Also explain the time complexity and how the two implementations are different.
+
+The ChatGPT solution used the same basic matrix multiplication algorithm in C, because this is the standard way to multiply matrices without using a library. However, the input handling was different from my implementation. Instead of defining the matrix values directly in the source code, the ChatGPT version allowed the user to enter the dimensions and values. For Python, ChatGPT used NumPy's matrix multiplication operation:
+
+```
+result = np.dot(matrix_a, matrix_b)
+```
+
+This is different from manually implementing the three loops in Python. NumPy performs the calculation using compiled code, which is why it is generally much faster for larger matrices. I compared the results of the ChatGPT implementation with my own implementation. Both produced the same matrix multiplication results for the tested cases. The main difference was in how the matrices were provided and how the code was structured. This experiment was useful because it showed that the same mathematical operation can be implemented in different ways while still producing the same result.
