@@ -2,9 +2,7 @@
 
 ## 1. Implementations
 
-For this task, I implemented 2D matrix slicing in Python using NumPy and in C. The main goal was to perform the same slicing operation in both languages and check whether they produce the same result.
-
-The matrix size is not hard-coded. The user enters the number of rows and columns, and then enters the starting and ending positions for rows and columns.
+For this task, I implemented 2D matrix slicing in Python using NumPy and in C. The main goal was to perform the same slicing operation in both languages and check whether they produce the same result. The matrix size is not hard-coded. The user enters the number of rows and columns, and then enters the starting and ending positions for rows and columns.
 
 ### Python implementation
 
@@ -90,3 +88,13 @@ The Python implementation also displays the sliced matrix graphically. The value
 ![Graphical result of the NumPy matrix slice](matrix_slice.png)
 
 The graphical result shows the same values as the printed output, so the slicing operation was performed correctly.
+
+## 3. Comparison
+
+The main difference between the two implementations is how slicing is performed. NumPy provides slicing directly through its array syntax:
+
+```python
+matrix[row_start:row_end, col_start:col_end]
+```
+
+In C, the same operation has to be implemented manually using two loops. For this simple operation, the Python implementation is shorter and easier to understand. However, C gives more direct control over memory and does not require an external numerical library. Both implementations gave the same result for the tested matrix and slicing boundaries.
