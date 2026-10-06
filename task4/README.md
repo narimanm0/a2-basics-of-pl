@@ -51,3 +51,42 @@ for (int i = row_start; i < row_end; i++) {
 ```
 
 The program dynamically allocates the matrix based on the dimensions entered by the user. Therefore, the program is not limited to one specific matrix size.
+
+## 2. Results
+
+I tested the program using the following inputs:
+
+```text
+5
+5
+1
+4
+2
+5
+```
+
+These inputs mean that I created a `5 x 5` matrix and selected rows `1` to `4` and columns `2` to `5`.
+
+The original matrix was:
+
+```text
+1   2   3   4   5
+6   7   8   9   10
+11  12  13  14  15
+16  17  18  19  20
+21  22  23  24  25
+```
+
+The resulting sliced matrix was:
+
+```text
+8   9   10
+13  14  15
+18  19  20
+```
+
+The Python implementation also displays the sliced matrix graphically. The values are shown inside the cells so that the graphical result can be easily compared with the printed matrix.
+
+![Graphical result of the NumPy matrix slice](matrix_slice.png)
+
+The graphical result shows the same values as the printed output, so the slicing operation was performed correctly.
